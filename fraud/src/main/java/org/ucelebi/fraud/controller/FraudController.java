@@ -3,6 +3,7 @@ package org.ucelebi.fraud.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.ucelebi.clients.fraud.FraudCheckResponse;
 import org.ucelebi.fraud.service.FraudCheckService;
 
 /**

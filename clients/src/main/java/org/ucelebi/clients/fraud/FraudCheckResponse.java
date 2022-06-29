@@ -1,4 +1,4 @@
-package org.ucelebi.fraud.controller;
+package org.ucelebi.clients.fraud;
 
 /**
  * @author UMITCELEBI
