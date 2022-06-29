@@ -62,11 +62,6 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.codehaus.woodstox</groupId>
-            <artifactId>stax2-api</artifactId>
-            <version>4.2.1</version>
-        </dependency>
     </dependencies>
 
     <build>
