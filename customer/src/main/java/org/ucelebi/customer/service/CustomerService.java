@@ -2,12 +2,12 @@ package org.ucelebi.customer.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.ucelebi.amqp.RabbitMQMessageProducer;
 import org.ucelebi.clients.fraud.FraudCheckResponse;
 import org.ucelebi.clients.fraud.FraudClient;
-import org.ucelebi.clients.notification.NotificationClient;
 import org.ucelebi.clients.notification.NotificationRequest;
-import org.ucelebi.customer.model.Customer;
 import org.ucelebi.customer.CustomerRegistrationRequest;
+import org.ucelebi.customer.model.Customer;
 import org.ucelebi.customer.repository.CustomerRepository;
 
 /**
@@ -19,7 +19,7 @@ public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer=Customer.builder()
                 .firstName(request.firstName())
@@ -36,12 +36,15 @@ public class CustomerService {
             throw new IllegalStateException("fraudster");
         }
 
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, Welcome to microservices...",customer.getFirstName())
-                )
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, Welcome to microservices...", customer.getFirstName())
+        );
+        rabbitMQMessageProducer.publish(
+                notificationRequest,
+                "internal.exchange",
+                "internal.notification.routing-key"
         );
     }
 }

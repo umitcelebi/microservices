@@ -11,6 +11,9 @@
 
     <artifactId>apigw</artifactId>
 
+    <name>apigw</name>
+    <url>https://www.umitclebi.com</url>
+
     <properties>
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>

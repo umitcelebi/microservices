@@ -9,7 +9,13 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 /**
  * @author UMITCELEBI
  */
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "org.ucelebi.customer",
+                "org.ucelebi.amqp"
+
+        }
+)
 @EnableEurekaClient
 @EnableFeignClients(
         basePackages = "org.ucelebi.clients"
